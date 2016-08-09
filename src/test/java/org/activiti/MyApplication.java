@@ -2,6 +2,7 @@ package org.activiti;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -42,6 +43,16 @@ public class MyApplication {
             .password("root")
             .driverClassName("com.mysql.jdbc.Driver")
             .build();
+    }
+    @Bean
+    public CommandLineRunner init(final MyService myService) {
+
+    	return new CommandLineRunner() {
+        	public void run(String... strings) throws Exception {
+            	myService.createDemoUsers();
+            }
+        };
+
     }
 
 }
